@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./style.css">
+    <title>导航</title>
+</head>
+<body>
+    <header><div class="cosaviation"><span class="c">C</span>osaviation.</div></header>
+    <main>
+        <div class="wrapper" id="mainx"></div>
+    </main>
+    <footer></footer>
+
+    <script>
+        function init(){
+            var keys = {
+            "0" : {0:'q',1:'w',2:'e',3:'r',4:'t',5:'y',6:'u',7:'i',8:'o',9:'p',length:'10'},
+            '1' : {0:'a',1:'s',2:'d',3:'f',4:'g',5:'h',6:'j',7:'k',8:'l',length:'9'},
+            '2' : {0:'z',1:'x',2:'c',3:'v',4:'b',5:'n',6:'m',length:'7'},
+            'length' : '3'
+            }
+            var hash = {'q':'qq.com','w':'weibo.com','e':'ele.me','d':'douban.com','b':'baidu.com','c':'cnki.net','u':'uc.cn','z':'zhihu.com','s':'sogou.com','g':'github.com','t':'taobao.com','y':'cidian.youdao.com','j':'www.jd.com','v':'v.qq.com','m':'meituan.com','n':'bilibili.com','x':'xueshu.baidu.com'}
+            return{
+                "keys": keys,
+                "hash": hash
+            }
+        }
+
+        function getFromLocalStorage(name){
+            return JSON.parse(localStorage.getItem(name) || 'null')
+        }
+
+        function tag(tagName){
+            return document.createElement(tagName)
+        }
+
+        function creatKbd(className){
+            var kbd = tag('kbd')
+            div.appendChild(kbd)
+            kbd.className = className
+            return kbd
+        }
+
+        function creatSpan(textContent){
+            var span = tag('span')           
+            kbd.appendChild(span)
+            span.textContent = textContent
+            span.className = 'word'
+            return span
+        }
+        
+        function creatButton(id){
+            var buttonx = tag('button') 
+            kbd.appendChild(buttonx)
+            buttonx.textContent = "编辑"
+            buttonx.id = id
+            buttonx.onclick = function(xy){
+                console.log(xy['target'])
+                var button2 = xy['target']
+                var img2 = button2.previousSibling
+                var key = button2['id']
+                var x = prompt('自定义一个网址')
+                hash[key] = x
+                img2.src = 'http://'+x+'/favicon.ico'
+                img2.onerror = function(xx){
+                xx.target.src= './unkown.png'}
+                localStorage.setItem('uuu', JSON.stringify(hash))
+            }
+            return button
+        }
+
+        function creatImage(domain){
+            var img = tag('img')
+            img.className = 'favicon'
+            kbd.appendChild(img)
+            if(domain){
+                img.src = 'http://'+domain+'/favicon.ico'
+            }
+            else(img.src = './unkown.png')
+            img.onerror = function(xx){
+                xx.target.src= './unkown.png'}
+            return img
+        }
+
+        var hashA = init()
+        var keys = hashA['keys']
+        var hash = hashA['hash']
+
+        var hashInLocalStorage = getFromLocalStorage('uuu')
+        if(hashInLocalStorage){
+            hash = hashInLocalStorage
+        }
+
+        for(var index = 0; index< keys['length']; index = index+1){
+            var div = tag('div')
+            mainx.appendChild(div)
+
+            var row = keys[index]
+            var index2 = 0
+            for(var index2 = 0; index2< row['length']; index2 = index2+1){
+
+                var kbd = creatKbd('keyboard')
+
+                var span = creatSpan(row[index2])           
+                
+                var button = creatButton(row[index2])
+                
+                var img = creatImage(hash[row[index2]])               
+            }
+        }
+        
+        document.onkeypress = function(xyz){
+            var key = xyz['key']
+            var website = 'http://'+hash[key]
+            console.log(hash[key])
+            window.open(website)
+        }
+    </script>
+    
+</body>
+</html>

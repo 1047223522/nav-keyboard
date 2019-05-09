@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>我的导航</title>
+</head>
+<body>
+    <header></header>
+    <main>
+        <div class="wrapper" id='mainx'></div>
+    </main>
+    <footer></footer>
+
+    <script>
+        keys = {
+            '1':{1:'tab',2:'q',3:'w',4:'e',5:'r',6:'t',7:'y',8:'u',9:'i',10:'o',11:'p',12:'[',13:']',14:'|',length:'15'},
+            '2':{1:'capslock',2:'a',3:'s',4:'d',5:'f',6:'g',7:'h',8:'j',9:'k',10:'l',11:';',12:'"',13:'enter',length:'14'},
+            '3':{1:'shift',2:'z',3:'x',4:'c',5:'v',6:'b',7:'n',8:'m',9:',',10:'.',11:'/',12:'shift',length:'13'},
+            'length':4
+        }
+        hash = {'q':'qq.com','w':'weibo.com','b':'baidu.com','t':'tieba.com','g':'google.com','y':'youtube.com'}
+
+
+        index = 1
+        while(index< keys['length']){
+            div = document.createElement('div')
+            mainx.appendChild(div)
+            row = keys[index]
+            index2 = 1
+            while(index2< row['length']){
+                kbd = document.createElement('kbd')
+                div.appendChild(kbd)
+                kbd.textContent = row[index2]
+                index2 = index2+1
+            }
+            index = index+1    
+        }
+        
+    </script>
+</body>
+</html>
